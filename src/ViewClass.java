@@ -1,19 +1,21 @@
-import java.awt.EventQueue;
-
+/**
+ * @author Siamak Shoja
+ * This class is the GUI part of the mp3 player program.
+ * It has parts containing the whole GUI and actionPerformed 
+ * when either of 4 buttons were clicked.
+ */
 import javax.swing.JFrame;
 import java.awt.Color;
-import javax.swing.JTextField;
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
-import javax.swing.SwingConstants;
 
 public class ViewClass implements ActionListener{
-
+/**
+ * attributes
+ */
 	private JFrame frmSiaPlayer;
 	JButton btnEject = new JButton("");
 	JButton btnPlay = new JButton("");
@@ -21,16 +23,21 @@ public class ViewClass implements ActionListener{
 	JButton btnStop = new JButton("");
 	JLabel lblNewLabel = new JLabel("Please load a mp3 file");
 	private PlayerMethods pm = new PlayerMethods();
-
+	
 	/**
-	 * Launch the application.
+	 * @return frmSiaPlayer to be used in Main class
 	 */
-	public static void main(String[] args) {
-					ViewClass window = new ViewClass();
-					window.frmSiaPlayer.setVisible(true);
+	public JFrame getFrmSiaPlayer() {
+		return frmSiaPlayer;
 	}
 	
-	final JFileChooser fileChooser = new JFileChooser();
+	/**
+	 * 
+	 * @param frmSiaPlayer 
+	 */
+	public void setFrmSiaPlayer(JFrame frmSiaPlayer) {
+		this.frmSiaPlayer = frmSiaPlayer;
+	}
 
 	/**
 	 * Create the application.
@@ -45,13 +52,13 @@ public class ViewClass implements ActionListener{
 	 * Initialize the contents of the frame.
 	 */
 	private void createGUI() {
-		frmSiaPlayer = new JFrame();
-		frmSiaPlayer.getContentPane().setBackground(Color.GRAY);
-		frmSiaPlayer.setBackground(Color.WHITE);
-		frmSiaPlayer.setTitle("Sia MP3 Player");
-		frmSiaPlayer.setBounds(100, 100, 357, 198);
-		frmSiaPlayer.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmSiaPlayer.getContentPane().setLayout(null);
+		setFrmSiaPlayer(new JFrame());
+		getFrmSiaPlayer().getContentPane().setBackground(Color.GRAY);
+		getFrmSiaPlayer().setBackground(Color.WHITE);
+		getFrmSiaPlayer().setTitle("Sia MP3 Player");
+		getFrmSiaPlayer().setBounds(100, 100, 357, 198);
+		getFrmSiaPlayer().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		getFrmSiaPlayer().getContentPane().setLayout(null);
 		
 		btnEject.setIcon(new ImageIcon(ViewClass.class.getResource("/jaco/mp3/player/plaf/resources/mp3PlayerEject.png")));
 		btnEject.setBounds(44, 114, 55, 23);
@@ -67,36 +74,42 @@ public class ViewClass implements ActionListener{
 		
 		btnStop.setIcon(new ImageIcon(ViewClass.class.getResource("/jaco/mp3/player/plaf/resources/mp3PlayerStop.png")));
 		btnStop.setBounds(239, 114, 55, 23);
-		
-	}
-	public void addComponentsToFrame (){
-		frmSiaPlayer.getContentPane().add(btnEject);
-		frmSiaPlayer.getContentPane().add(btnPlay);
-		frmSiaPlayer.getContentPane().add(btnPause);
-		frmSiaPlayer.getContentPane().add(lblNewLabel);
-		frmSiaPlayer.getContentPane().add(btnStop);
 	}
 	
+	/**
+	 * Adding all 4 buttons and one label to the frame
+	 */
+	public void addComponentsToFrame (){
+		getFrmSiaPlayer().getContentPane().add(btnEject);
+		getFrmSiaPlayer().getContentPane().add(btnPlay);
+		getFrmSiaPlayer().getContentPane().add(btnPause);
+		getFrmSiaPlayer().getContentPane().add(lblNewLabel);
+		getFrmSiaPlayer().getContentPane().add(btnStop);
+	}
+	
+	/**
+	 * adding actionListeners
+	 */
 	public void addActionListeners(){
 		btnEject.addActionListener(this);
 		btnPlay.addActionListener(this);
 		btnPause.addActionListener(this);
 		btnStop.addActionListener(this);
 	}
-
-	@Override
+	
+	/**
+	 * ActionPerformed for all 4 buttons
+	 * when they were clicked
+	 */
 	public void actionPerformed(ActionEvent e) {
-		
 		
 		if (e.getSource() == btnEject) {
 			pm.opens();
-			//lblNewLabel.setText(file.getName());
+			lblNewLabel.setText(pm.getSongName());
 			}
-		
 		
 		if (e.getSource() == btnPlay){
 			pm.plays();
-			//System.out.println("Hi");
 		}
 		
 		if (e.getSource() == btnStop){
@@ -106,9 +119,5 @@ public class ViewClass implements ActionListener{
 		if (e.getSource() == btnPause){
 			pm.pauses();
 		}
-		
-	
-		
 	}
-	
 }
