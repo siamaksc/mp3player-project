@@ -1,7 +1,4 @@
-/**
- * PlayerMethod class that set required action(s) for all 4 methods
- * open, play, pause and stop
- */
+
 import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -9,49 +6,33 @@ import jaco.mp3.player.MP3Player;
 
 /**
  * 
+ * PlayerMethod class that set required action(s) for all 4 methods
+ * open, play, pause and stop
  * This class inherit from the interface
  * Required attributes.
  *
  */
 public class PlayerMethods implements PlayerInterface{
-	private MP3Player mp3player;
-	private String mp3File= "";
-	private String songName = "";
+	private String mp3File="";
 	File file = new File (mp3File);
 	MP3Player mplayer = new MP3Player(file);
 	
 	/**
 	 * 
-	 * @return Mp3layer
+	 * @return Mp3File which is the song
+	 * playing and is in String.
 	 */
-	public MP3Player getMp3player() {
-		return mp3player;
+	public String getMp3File() {
+		return mp3File;
 	}
 	
 	/**
 	 * 
-	 * @param mp3player
-	 */
-	public void setMp3player(MP3Player mp3player) {
-		this.mp3player = mp3player;
-	}
-	
-	/**
-	 * 
-	 * @return SongName which is the name of the 
-	 * song playing and in String.
-	 */
-	public String getSongName() {
-		return songName;
-	}
-	
-	/**
-	 * 
-	 * @param songName which sets the name of the song
+	 * @param mp3File which sets the song
 	 * to be used and shown in label.
 	 */
-	public void setSongName(String songName) {
-		this.songName = songName;
+	public void setMp3File(String mp3File) {
+		this.mp3File = mp3File;
 	}
 	
 	/**
@@ -77,10 +58,10 @@ public class PlayerMethods implements PlayerInterface{
 	
 	/**
 	 * method opens which uses JFileChooser to show the openDialog
-	 * and select the mp3file.
-	 * it also uses FileNameExtensionFilter to filter showing files
-	 * to only mp3 files. It also sets the name of the file to
-	 * songName to be shown in GUI label and plays the selected file.
+	 * and select the mp3file. It also uses FileNameExtensionFilter to 
+	 * filter showing files to only mp3 files. It also sets the 
+	 * name of the file to mp3File to be shown in GUI label 
+	 * and plays the selected file.
 	 */
 	public void opens() {
 		final JFileChooser fileChooser = new JFileChooser();
@@ -91,9 +72,13 @@ public class PlayerMethods implements PlayerInterface{
 			File file = fileChooser.getSelectedFile();
 			mplayer.stop();
 			mplayer = new MP3Player (file);
-			String songName = file.getName();
-			setSongName(songName);
+			setMp3File(file.getName());
 			mplayer.play();
+		}else{
+			if (mplayer.isStopped()){ //if no song is playing and file not chosen
+									//displays the massage. 
+				setMp3File("<<Please load a mp3 file>>");
+			}
 		}
 	}	
 }

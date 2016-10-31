@@ -1,6 +1,5 @@
 /**
  * 
- * @author Sia
  * Interface for all four methods.
  *
  */

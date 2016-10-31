@@ -1,9 +1,4 @@
-/**
- * @author Siamak Shoja
- * This class is the GUI part of the mp3 player program.
- * It has parts containing the whole GUI and actionPerformed 
- * when either of 4 buttons were clicked.
- */
+
 import javax.swing.JFrame;
 import java.awt.Color;
 import javax.swing.JButton;
@@ -12,16 +7,24 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 
-public class ViewClass implements ActionListener{
 /**
- * attributes
+ * 
+ * This class is the GUI part of the mp3 player program.
+ * It has parts containing the whole GUI and actionPerformed 
+ * when either of 4 buttons were clicked.
+ * 
  */
+
+public class ViewClass implements ActionListener{
+	/**
+	 * attributes
+	 */
 	private JFrame frmSiaPlayer;
 	JButton btnEject = new JButton("");
 	JButton btnPlay = new JButton("");
 	JButton btnPause = new JButton("");
 	JButton btnStop = new JButton("");
-	JLabel lblNewLabel = new JLabel("Please load a mp3 file");
+	JLabel lblNewLabel = new JLabel("<<Please load a mp3 file>>");
 	private PlayerMethods pm = new PlayerMethods();
 	
 	/**
@@ -105,11 +108,12 @@ public class ViewClass implements ActionListener{
 		
 		if (e.getSource() == btnEject) {
 			pm.opens();
-			lblNewLabel.setText(pm.getSongName());
+			lblNewLabel.setText(pm.getMp3File());
 			}
 		
 		if (e.getSource() == btnPlay){
 			pm.plays();
+			lblNewLabel.setText(pm.getMp3File());
 		}
 		
 		if (e.getSource() == btnStop){
